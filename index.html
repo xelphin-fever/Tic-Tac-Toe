@@ -12,10 +12,20 @@
 </head>
 <body>
     <div id="div-all">
-        <!--TITLE-->
+        <!--TOP DIV-->
         <div id="div-top">
+            <!--RESET-->
             <button id= "btn-reset">Reset</button>
-            <h1 id="title"><span class="title-span">Tic</span> <span class="title-span">Tac</span> <span class="title-span">Toe</span></h1>
+            <!--TITLE-->
+            <h1 id="title" style="display:block;"><span class="title-span">Tic</span> <span class="title-span">Tac</span> <span class="title-span">Toe</span></h1>
+            <h1 id="winner" style="display:none;">Player <span id="winner-span"></span> Won!</h1>
+            <!--LOG-->
+            <div id="div-log">
+                <h2 id="turn">It's <span id="player-span">Player 1</span id="turn-span">'s Turn</h2>
+                <br>
+                <h2>Player 1 Score: <span id="score1-span">0</span></h2>
+                <h2>Player 2 Score: <span id="score2-span">0</span></h2>
+            </div>
         </div>
         <!--GAME-->
         <div id="div-game">
@@ -25,7 +35,7 @@
                     <h2 id="player1-title" class="player-title" style="border: 2px solid #e4c583d8">Player 1</h2>
                 </div>
                 <div id="div-player1-stars" class="div-player-stars">
-                    <div class="div-star"><i class="fa fa-star fa-4x"></i></div>
+                    
                 </div>
             </div>
             <!--BOARD-->

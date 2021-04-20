@@ -89,30 +89,44 @@ const gameBoard = (() => {
 })();
 
 //---PLAYER---
-const Player = (name, sign) => {
+const Player = (name, sign,position) => {
     let wins = 0;
 
     const getName = () => name;
     const getSign = () => sign;
     const addWin = () => wins++;
     const getScore= () => wins;
+    const getPosition = () => position;
 
     return {
         getName,
         getSign,
         addWin,
         getScore,
+        getPosition,
     }
 }
 
 //---DOM---
 const displayController = (() => {
-    const squares = document.querySelectorAll(".div-square");
+    //Title
+    const titleGame = document.querySelector("#title");
+    const titleWinner = document.querySelector("#winner");
+    const spanWinner = document.querySelector("#winner-span");
+    //Player Titles
     const titlePlayer1 = document.querySelector("#player1-title");
     const titlePlayer2 = document.querySelector("#player2-title");
+    //Reset
+    const btnReset = document.querySelector("#btn-reset");
+    //Log
+    const logPlayer = document.querySelector("#player-span");
+    const logScore1 = document.querySelector("#score1-span");
+    const logScore2 = document.querySelector("#score2-span");
+    //Stars
     const divStarsPlayer1 = document.querySelector("#div-player1-stars");
     const divStarsPlayer2 = document.querySelector("#div-player2-stars");
-    const btnReset = document.querySelector("#btn-reset");
+    //Squares
+    const squares = document.querySelectorAll(".div-square");
 
     let hasReset=false;
 
@@ -139,6 +153,8 @@ const displayController = (() => {
             titlePlayer1.style.border="none";
             titlePlayer2.style.border="3px solid #e4c583d8";
         }
+        //UPDATE LOG
+        (player==1) ? logPlayer.textContent="Player 1" : logPlayer.textContent="Player 2";
     }
 
     //ADD STAR
@@ -162,6 +178,7 @@ const displayController = (() => {
         });
         gameBoard.resetBoard();
         hasReset=true;
+        changeTitle(false);
     });
     const getReset = () => hasReset;
     const falsifyReset =() => {
@@ -169,6 +186,23 @@ const displayController = (() => {
         console.log("New Game:");
     };
 
+    //LOG SCORE
+    const updateLogScore= (player,position) => {
+        (position=="1") ? logScore1.textContent=`${player.getScore()}` : logScore2.textContent=`${player.getScore()}`;
+    }
+
+    //CHANGE TITLE
+    const changeTitle = (showWinner,winner="0") => {
+        if (showWinner==true){
+            titleGame.style.display="none";
+            titleWinner.style.display="block";
+            spanWinner.textContent = winner;
+        }
+        else {
+            titleWinner.style.display="none";
+            titleGame.style.display="block";
+        }
+    }
 
     return  {
         addSignToSquare,
@@ -176,6 +210,8 @@ const displayController = (() => {
         getReset,
         falsifyReset,
         playerTurn,
+        updateLogScore,
+        changeTitle,
     }
 
 })();
@@ -186,8 +222,8 @@ const displayController = (() => {
 const game = ( () => {
     console.log("Start Game:");
 
-    const player1 = Player("player1","X");
-    const player2 = Player("player2","O");
+    const player1 = Player("player1","X","1");
+    const player2 = Player("player2","O","2");
 
     let currentPlayer =player1;
     let stopGame = false;
@@ -205,7 +241,10 @@ const game = ( () => {
                 console.log(currentPlayer.getName()+" is the Winner!");
                 stopGame=true;
                 currentPlayer.addWin();
-                (currentPlayer==player1) ? displayController.addStar("1") : displayController.addStar("2");
+                displayController.addStar(currentPlayer.getPosition());
+                displayController.updateLogScore(currentPlayer,currentPlayer.getPosition());
+                displayController.changeTitle(true,currentPlayer.getPosition());
+                
             }
             else if (gameBoard.checkTie()){
                 console.log("We have a tie.")

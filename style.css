@@ -37,16 +37,16 @@ body{
     justify-content: center;
 }
 /*TITLE*/
-#title{
+#title, #winner{
     font-size:200px;
     color: var(--white);
 }
-.title-span{
+.title-span, #winner{
     display:inline-block;
     text-shadow: -8px -8px var(--dark-yellow);
     transition: 0.1s all linear;
 }
-.title-span:hover{
+.title-span:hover, #winner:hover{
     transform:scale(0.98) translate(2px,2px);
     text-shadow: -6px -6px var(--dark-yellow);
 }
@@ -78,6 +78,24 @@ body{
     outline: none;
 }
 
+/*LOG*/
+#div-log{
+    position:absolute;
+    width:220px;
+    height:160px;
+    padding:13px;
+    outline: 2px solid var(--dark-yellow);
+    outline-offset: 15px;
+    top: calc(50%-100px);
+    right:150px;
+    color:white;
+    text-shadow:3px 3px var(--dark-yellow);
+    text-align: center;
+    font-size: 18px;
+}
+#turn{
+    background-color: var(--pink);
+}
 
 
 
