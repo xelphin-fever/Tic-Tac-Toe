@@ -52,29 +52,33 @@ body{
 }
 
 /*RESET*/
-#btn-reset{
+#div-buttons{
     position: absolute;
     top: calc(50%-35px);
-    left:80px;
-    font-size:40px;
-    width:120px;
-    height:70px;
+    left:40px;
+    display:flex;
+    flex-direction: column;
+}
+.button{
+    font-size:35px;
     background-color: var(--pink);
     color: var(--white);
     text-shadow: -2px -2px var(--dark-pink);
     border: none;
     box-shadow: 8px 8px var(--dark-yellow);
     transition: 0.1s all linear;
+    margin: 8px 0;
+    padding:2px 12px;
 }
-#btn-reset:hover{
+.button:hover{
     transform:scale(0.97) translate(2px,2px);
     box-shadow: 6px 6px var(--dark-yellow);
 }
-#btn-reset:active{
+.button:active{
     transform:scale(0.94) translate(4px,4px);
     box-shadow: 4px 4px var(--dark-yellow);
 }
-#btn-reset:focus{
+.button:focus{
     outline: none;
 }
 

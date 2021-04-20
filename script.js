@@ -127,8 +127,12 @@ const displayController = (() => {
     const divStarsPlayer2 = document.querySelector("#div-player2-stars");
     //Squares
     const squares = document.querySelectorAll(".div-square");
+    //Computer Button
+    const computerButton = document.querySelector("#btn-comp");
+    const computerSpan = document.querySelector("#span-comp");
 
     let hasReset=false;
+    let playComputer=false;
 
     //SQUARES
     squares.forEach((square) => {
@@ -179,6 +183,9 @@ const displayController = (() => {
         gameBoard.resetBoard();
         hasReset=true;
         changeTitle(false);
+        if (playComputer==true && game.getCurrentPlayer().getPosition()=="2"){
+            game.addMoveComputer();
+        }
     });
     const getReset = () => hasReset;
     const falsifyReset =() => {
@@ -204,6 +211,22 @@ const displayController = (() => {
         }
     }
 
+    //PLAY COMPUTER
+    const getPlayComputer = () => playComputer;
+    computerButton.addEventListener("click", () => {
+        playComputer= !playComputer;
+        if (playComputer==true){
+            computerSpan.textContent="Computer";
+        }
+        else {
+            computerSpan.textContent="Person";
+        }
+        //if switch after X turn
+        if (game.getCurrentPlayer().getPosition()=="2"){
+            game.addMoveComputer();
+        }
+    })
+
     return  {
         addSignToSquare,
         addStar,
@@ -212,11 +235,30 @@ const displayController = (() => {
         playerTurn,
         updateLogScore,
         changeTitle,
+        getPlayComputer,
     }
 
 })();
 
 
+//--COMPUTER---
+const computer = (() => {
+    //RANDOM MOVE
+    const randomMove = () => {
+        let availablePlaces=[];
+        for (i=0;i<9;i++){
+            if (gameBoard.checkAvailable(i.toString())){
+                availablePlaces.push(i.toString());
+            }
+        }
+        let randomPlace = availablePlaces[Math.floor(Math.random() * availablePlaces.length)]
+        return randomPlace;
+    }
+    //RETURN
+    return {
+        randomMove,
+    }
+})();
 
 //---GAME---
 const game = ( () => {
@@ -229,10 +271,12 @@ const game = ( () => {
     let stopGame = false;
 
     const addMove = (position) => {
+        //RESET
         if (displayController.getReset()==true){
             displayController.falsifyReset();
             stopGame=false;
         }
+        //PERSON MOVE
         if (gameBoard.checkAvailable(position) && stopGame==false){
             gameBoard.addToBoard(position,currentPlayer.getSign());
             displayController.addSignToSquare(position,currentPlayer.getSign());
@@ -244,21 +288,40 @@ const game = ( () => {
                 displayController.addStar(currentPlayer.getPosition());
                 displayController.updateLogScore(currentPlayer,currentPlayer.getPosition());
                 displayController.changeTitle(true,currentPlayer.getPosition());
-                
+                 
             }
             else if (gameBoard.checkTie()){
                 console.log("We have a tie.")
                 stopGame=true;
             }
             (currentPlayer==player1) ? currentPlayer=player2 : currentPlayer= player1;
+            //COMPUTER MOVE
+            if (currentPlayer==player2 && displayController.getPlayComputer()==true && stopGame==false){
+                console.log("computer move");
+                addMoveComputer();
+            }
+            //PRINT BOARD TO CONSOLE
             gameBoard.printBoard();
+
         }
         else if (stopGame==false){
             console.log("position taken");
         }
     }
+
+    const addMoveComputer = () => {
+        let computerMove = computer.randomMove();
+        addMove(computerMove);
+    }
+
+    const getCurrentPlayer = () => currentPlayer;
+    const isGameOver = () => stopGame;
+    
     return {
         addMove,
+        addMoveComputer,
+        getCurrentPlayer,
+        isGameOver,
     }
 })();
 

@@ -15,7 +15,10 @@
         <!--TOP DIV-->
         <div id="div-top">
             <!--RESET-->
-            <button id= "btn-reset">Reset</button>
+            <div id="div-buttons">
+                <button id= "btn-reset" class="button" >Reset</button>
+                <button id= "btn-comp" class="button" data-choose="true" data-active="false">Playing Against <span id="span-comp">Person</span></button>
+            </div>
             <!--TITLE-->
             <h1 id="title" style="display:block;"><span class="title-span">Tic</span> <span class="title-span">Tac</span> <span class="title-span">Toe</span></h1>
             <h1 id="winner" style="display:none;">Player <span id="winner-span"></span> Won!</h1>
