@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link href="./style.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div id="div-all">
+        <!--TITLE-->
+        <div id="div-top">
+            <button id= "btn-reset">Reset</button>
+            <h1 id="title"><span class="title-span">Tic</span> <span class="title-span">Tac</span> <span class="title-span">Toe</span></h1>
+        </div>
+        <!--GAME-->
+        <div id="div-game">
+            <!--PLAYER 1-->
+            <div id="div-player1" class="div-player">
+                <div id="div-player1-title" class="div-player-title">
+                    <h2 id="player1-title" class="player-title" style="border: 2px solid #e4c583d8">Player 1</h2>
+                </div>
+                <div id="div-player1-stars" class="div-player-stars">
+                    <div class="div-star"><i class="fa fa-star fa-4x"></i></div>
+                </div>
+            </div>
+            <!--BOARD-->
+            <div id="div-board">
+                <div class="div-square" data-square="0"></div>
+                <div class="div-square" data-square="1"></div>
+                <div class="div-square" data-square="2"></div>
+                <div class="div-square" data-square="3"></div>
+                <div class="div-square" data-square="4"></div>
+                <div class="div-square" data-square="5"></div>
+                <div class="div-square" data-square="6"></div>
+                <div class="div-square" data-square="7"></div>
+                <div class="div-square" data-square="8"></div>
+            </div>
+            <!--PLAYER 2-->
+            <div id="div-player2" class="div-player">
+                <div id="div-player2-title" class="div-player-title">
+                    <h2 id="player2-title" class="player-title" style="border:none">Player 2</h2>
+                </div>
+                <div id="div-player2-stars" class="div-player-stars">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>

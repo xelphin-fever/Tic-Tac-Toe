@@ -1,0 +1,154 @@
+:root{
+    --white: #FEFEFE;
+    --yellow: #F3D493;
+    --dark-yellow: #e4c583d8;
+    --light-green: #D8D3A4;
+    --dark-green: #c9c38b;
+    --pink: #EFC6B4;
+    --dark-pink:  #d8aa96; 
+    --gold: #DEB479;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: 'Mountains of Christmas', cursive;
+}
+
+body{
+    background-color: var(--yellow);
+}
+
+#div-all{
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    width:100vw;
+    height:100vh;
+}
+
+/*TOP*/
+#div-top{
+    position: relative;
+    width:100vw;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+/*TITLE*/
+#title{
+    font-size:200px;
+    color: var(--white);
+}
+.title-span{
+    display:inline-block;
+    text-shadow: -8px -8px var(--dark-yellow);
+    transition: 0.1s all linear;
+}
+.title-span:hover{
+    transform:scale(0.98) translate(2px,2px);
+    text-shadow: -6px -6px var(--dark-yellow);
+}
+
+/*RESET*/
+#btn-reset{
+    position: absolute;
+    top: calc(50%-35px);
+    left:80px;
+    font-size:40px;
+    width:120px;
+    height:70px;
+    background-color: var(--pink);
+    color: var(--white);
+    text-shadow: -2px -2px var(--dark-pink);
+    border: none;
+    box-shadow: 8px 8px var(--dark-yellow);
+    transition: 0.1s all linear;
+}
+#btn-reset:hover{
+    transform:scale(0.97) translate(2px,2px);
+    box-shadow: 6px 6px var(--dark-yellow);
+}
+#btn-reset:active{
+    transform:scale(0.94) translate(4px,4px);
+    box-shadow: 4px 4px var(--dark-yellow);
+}
+#btn-reset:focus{
+    outline: none;
+}
+
+
+
+
+/*GAME*/
+#div-game{
+    display:flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    width:100%;
+    height:100%;
+    
+}
+/*PLAYER*/
+.div-player{
+    width:18%;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+}
+.player-title{
+    font-size:45px;
+    margin-bottom:15px;
+    width:160px;
+    text-align: center;
+    color: var(--white);
+    text-shadow: 5px 5px var(--light-green);
+    transition: 0.1s all linear;
+}
+.player-title:hover{
+    transform:scale(1.05) translate(-2px,-2px);
+    text-shadow: 8px 8px var(--light-green);
+}
+
+/*STARS*/
+.div-player-stars{
+    color:var(--gold);
+    text-shadow: var(--white);
+    display:flex;
+    flex-wrap: wrap;
+}
+.fa-star{
+    text-shadow: 5px 5px var(--dark-yellow);
+    transition: 0.1s all linear;
+    padding:3px;
+}
+.fa-star:hover{
+    transform:scale(1.03) translate(-2px,-2px);
+    text-shadow: 7px 7px var(--dark-yellow);
+}
+
+
+/*BOARD*/
+#div-board{
+    display:flex;
+    flex-wrap: wrap;
+    background-color: white;
+    width:600px;
+    height: 600px;
+}
+.div-square{
+    color:white;
+    text-shadow: 2px 2px var(--dark-green);
+    width:30%;
+    height:30%;
+    background-color: var(--light-green);
+    margin: 1.658%;
+    font-size: 150px;
+    text-align: center;
+    transition: 0.1s transform linear;
+}
+.div-square:hover{
+    background-color: var(--dark-green);
+    transform: scale(1.03);
+}
