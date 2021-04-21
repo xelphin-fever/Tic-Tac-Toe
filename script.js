@@ -6,12 +6,18 @@ const gameBoard = (() => {
     //Initialize Board
     let myBoard = {
         board: ["-","-","-","-","-","-","-","-","-"],
-        boardSplit:[["","",""],
+        boardSplit:[
+            ["","",""],
             ["","",""],
             ["","",""]
-        ]
+        ],
+        boardTest: [
+            ["","",""],
+            ["","",""],
+            ["","",""]
+        ],
     }
-    //Log Board in Console
+    //LOG BOARD IN CONSOLE
     const printBoard = () => {
         let boardString="";
         for (let i=0; i<3 ; i++){
@@ -22,37 +28,54 @@ const gameBoard = (() => {
         }
         console.log(boardString);
     }
-    //Check if Position Available
+
+    //CHECK IF POSITION AVAILABLE
     const checkAvailable = (position) => {
         if (myBoard.board[position]!="-"){
             return false;
         }
         return true;
     }
-    //Add Move to Board
+    //ADD MOVE TO REAL BOARDS
     const addToBoard = (position,sign) => {
         myBoard.board[position]=sign;
         myBoard.boardSplit[Math.floor(position/3)][position%3]=sign;
+        myBoard.boardTest=myBoard.boardSplit; //safer because of manipulations
     }
-    //Check For Win
-    const checkWin = (sign) => {
+
+    //TEST
+    //Test Move on Board
+    const addToBoardTest = (position, sign) => {
+        console.log("added to board test at: ",position);
+        myBoard.boardTest[Math.floor(position/3)][position%3]=sign;
+    }
+    //Remove Test Move from Board
+    const removeFromBoardTest = (position) => {
+        myBoard.boardTest[Math.floor(position/3)][position%3]="";
+    }
+    //Get Test Board
+    const getTestBoard = () => myBoard.boardTest;
+
+    
+    //CHECK FOR WIN
+    const checkWin = (sign, checkBoard=myBoard.boardSplit) => {
         //check horizontal
         for (let i=0;i<3;i++){
-            if (myBoard.boardSplit[i][0]==sign && myBoard.boardSplit[i][1]==sign && myBoard.boardSplit[i][2]==sign){
+            if (checkBoard[i][0]==sign &&checkBoard[i][1]==sign && checkBoard[i][2]==sign){
                 return true;
             }
         }
         //check vertical
         for (let i=0; i<3;i++){
-            if (myBoard.boardSplit[0][i]==sign && myBoard.boardSplit[1][i]==sign && myBoard.boardSplit[2][i]==sign){
+            if (checkBoard[0][i]==sign && checkBoard[1][i]==sign && checkBoard[2][i]==sign){
                 return true;
             }
         }
         //check diagonal
-        if (myBoard.boardSplit[0][0]==sign && myBoard.boardSplit[1][1]==sign && myBoard.boardSplit[2][2]==sign){
+        if (checkBoard[0][0]==sign && checkBoard[1][1]==sign && checkBoard[2][2]==sign){
             return true;
         }
-        if (myBoard.boardSplit[0][2]==sign && myBoard.boardSplit[1][1]==sign && myBoard.boardSplit[2][0]==sign){
+        if (checkBoard[0][2]==sign && checkBoard[1][1]==sign && checkBoard[2][0]==sign){
             return true;
         }
         //no win
@@ -75,6 +98,11 @@ const gameBoard = (() => {
             ["","",""],
             ["","",""]
         ]
+        myBoard.boardTest = [
+            ["","",""],
+            ["","",""],
+            ["","",""]
+        ]
     }
     //
     //
@@ -85,6 +113,9 @@ const gameBoard = (() => {
         checkWin,
         checkTie,
         resetBoard,
+        addToBoardTest,
+        removeFromBoardTest,
+        getTestBoard,
     }
 })();
 
@@ -221,7 +252,7 @@ const displayController = (() => {
         else {
             computerSpan.textContent="Person";
         }
-        //if switch after X turn
+        //if switch after player 1 did turn
         if (game.getCurrentPlayer().getPosition()=="2"){
             game.addMoveComputer();
         }
@@ -243,10 +274,14 @@ const displayController = (() => {
 
 //--COMPUTER---
 const computer = (() => {
+
+    const mySign = "O";
+    const oppSign ="X";
+
     //RANDOM MOVE
     const randomMove = () => {
         let availablePlaces=[];
-        for (i=0;i<9;i++){
+        for (let i=0;i<9;i++){
             if (gameBoard.checkAvailable(i.toString())){
                 availablePlaces.push(i.toString());
             }
@@ -254,9 +289,80 @@ const computer = (() => {
         let randomPlace = availablePlaces[Math.floor(Math.random() * availablePlaces.length)]
         return randomPlace;
     }
+
+    //SMART MOVE
+    //
+    //if only one move left, go there
+    //if nothing put yet, put in middle
+    //computer checks if have a win if put O somewhere, then do it
+    //computer checks if person has a win if put X somewhere, then block it
+    //put randomly ? oooor recursion??
+    let hasWon=false;
+    const smartMove = (checkBoard= gameBoard.getTestBoard()) => {
+        console.log("Computer Think of Move:");
+        console.log("Current Board Before Move: ",checkBoard);
+        let availablePlaces=[];
+        for (let i=0;i<9;i++){
+            if (gameBoard.checkAvailable(i.toString())){
+                availablePlaces.push(i.toString());
+            }
+        }
+        //only one available place
+        if (availablePlaces.length==1){
+            console.log("Computer Places in Middle to Start")
+            return availablePlaces[0];
+        }
+        //it's the first move or second move and the middle isn't taken
+        if (availablePlaces.length==9 || (availablePlaces.length==8 && availablePlaces.includes("4"))){
+            return "4";
+        }
+        if (availablePlaces.length==8){
+            return "0";
+        }
+        //test for a win
+        for (let i=0;i<availablePlaces.length;i++){
+            gameBoard.addToBoardTest(availablePlaces[i], mySign);
+            let myWin = gameBoard.checkWin(mySign,checkBoard);
+            if (myWin==true){
+                hasWon=true;
+                console.log("Computer Places for Win");
+                return availablePlaces[i];
+            }
+            gameBoard.removeFromBoardTest(availablePlaces[i]);
+        }
+        //test for opponent win
+        for (let j=0;j<availablePlaces.length;j++){
+            gameBoard.addToBoardTest(availablePlaces[j], oppSign);
+            let oppWin = gameBoard.checkWin(oppSign,checkBoard);
+            if (oppWin==true){
+                console.log("Computer Places for Block");
+                return availablePlaces[j];
+            }
+            gameBoard.removeFromBoardTest(availablePlaces[j]);
+        }
+        //put in conrners if available
+        if (availablePlaces.includes("2")){
+            return "2";
+        }
+        if (availablePlaces.includes("6")){
+            return "6";
+        }
+        if (availablePlaces.includes("8")){
+            return "8";
+        }
+
+        //put randomly
+        console.log("Computer at Random");
+        let randomPlace = availablePlaces[Math.floor(Math.random() * availablePlaces.length)]
+        return randomPlace;
+    }
+
+
+
     //RETURN
     return {
         randomMove,
+        smartMove,
     }
 })();
 
@@ -310,7 +416,8 @@ const game = ( () => {
     }
 
     const addMoveComputer = () => {
-        let computerMove = computer.randomMove();
+        let computerMove = computer.smartMove();
+        console.log("Computer Chose Move: ",computerMove);
         addMove(computerMove);
     }
 
