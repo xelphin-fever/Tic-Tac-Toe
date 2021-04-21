@@ -1,0 +1,45 @@
+
+@media only screen and (max-width: 350px) {
+    #div-top{
+        position:static;
+    }
+    #title{
+        font-size:70px;
+    }
+    #winner{
+        font-size:60px;
+        margin-bottom:20px;
+    }
+    #div-buttons{
+        bottom:5vh;
+        left:0;
+        flex-direction: row;
+        justify-content: space-evenly;
+        width:100vw;
+    }
+    .button{
+        font-size:20px;
+        margin: 8px 0;
+        padding:2px 12px;
+    }
+    #div-log{
+        width:200px;
+        height:110px;
+        padding:7px;
+        outline-offset: 2px;
+        bottom:15vh;
+        margin:0 32px;
+        font-size: 13px;
+    }
+
+
+    /*GAME*/
+    #div-board{
+        width:250px;
+        height: 250px;
+    }
+    .div-square{
+        font-size: 60px;
+    }
+
+  }

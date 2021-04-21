@@ -1,0 +1,40 @@
+
+@media only screen and (max-width: 790px) {
+    #div-top{
+        position:static;
+    }
+    #title, #winner{
+        font-size:120px;
+    }
+    #div-buttons{
+        bottom:5vh;
+        left:40px;
+    }
+    .button{
+        width:380px;
+        font-size:35px;
+    }
+    #div-log{
+        width:250px;
+        height:170px;
+        padding:10px;
+        outline-offset: 5px;
+        bottom:5vh;
+        right:0%;
+        font-size: 22px;
+    }
+
+
+    /*GAME*/
+    .div-player{
+        display:none;
+    }
+    #div-board{
+        width:550px;
+        height: 550px;
+    }
+    .div-square{
+        font-size: 100px;
+    }
+
+  }

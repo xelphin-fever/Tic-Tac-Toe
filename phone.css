@@ -1,0 +1,53 @@
+
+@media only screen and (max-width: 600px) {
+    #div-top{
+        position:static;
+    }
+    #title{
+        font-size:90px;
+    }
+    #winner{
+        font-size:70px;
+        margin-bottom:20px;
+    }
+    #div-buttons{
+        bottom:5vh;
+        left:0;
+        flex-direction: row;
+        justify-content: space-evenly;
+        width:100vw;
+    }
+    .button{
+        width:fit-content;
+        font-size:25px;
+        margin: 8px 0;
+        padding:2px 12px;
+    }
+    #div-log{
+        width:220px;
+        height:110px;
+        padding:10px;
+        outline-offset: 5px;
+        bottom:15vh;
+        right: 9%;
+        font-size: 12px;
+    }
+
+
+    /*GAME*/
+    .div-player{
+        display:none;
+    }
+    #div-board{
+        width:300px;
+        height: 300px;
+    }
+    .div-square{
+        width:30%;
+        height:30%;
+        margin: 1.658%;
+        font-size: 75px;
+        text-align: center;
+    }
+
+  }

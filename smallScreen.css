@@ -1,0 +1,33 @@
+
+@media only screen and (max-width: 1505px) {
+    #title{
+        font-size:160px;
+    }
+    #winner{
+        font-size:150px;
+    }
+    .button{
+        font-size:25px;
+        padding:2px 8px;
+    }
+    #div-log{
+        right:1%;
+        width:220px;
+        height:120px;
+        padding:10px;
+        outline-offset: 5px;
+        margin:0 50px;
+        font-size: 15px;
+    }
+
+
+    /*GAME*/
+    #div-board{
+        width:450px;
+        height: 450px;
+    }
+    .div-square{
+        font-size: 110px;
+    }
+
+  }

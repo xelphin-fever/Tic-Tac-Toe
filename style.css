@@ -16,6 +16,7 @@
     font-family: 'Mountains of Christmas', cursive;
 }
 
+
 body{
     background-color: var(--yellow);
 }
@@ -91,7 +92,7 @@ body{
     outline: 2px solid var(--dark-yellow);
     outline-offset: 15px;
     top: calc(50%-100px);
-    right:150px;
+    right:5%;
     color:white;
     text-shadow:3px 3px var(--dark-yellow);
     text-align: center;
